@@ -2,84 +2,172 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${post.title}">ExcelR Blog App</title>
+    <title th:text="${post.title}">ExcelR Blog</title>
+
+    <!-- Bootstrap -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
     <style>
         body {
-            background-color: #f8f9fa;
-        }
-        .navbar {
-            background-color: #111;
-        }
-        .navbar a, .navbar-brand {
-            color: white !important;
-        }
-        .search-box {
-            background-color: white;
-            padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 0 3px rgba(0,0,0,0.1);
-        }
-        .footer {
-            background-color: #111;
-            color: white;
-            padding: 15px 0;
-            text-align: center;
-            margin-top: 30px;
-        }
-        .footer a {
-            color: #00f;
-        }
-        .comment {
-            margin-bottom: 20px;
-        }
-        .comment strong {
-            color: #007bff;
-        }
-        form {
-            margin-top: 30px;
-            background-color: #fdfdfd;
-            padding: 20px;
-            border-radius: 6px;
-            box-shadow: 0 0 5px rgba(0,0,0,0.05);
-        }
-        label {
-            display: block;
-            margin-top: 15px;
-            font-weight: bold;
-        }
-        input, textarea {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            box-sizing: border-box;
-        }
-        textarea {
-            height: 100px;
-            resize: vertical;
-        }
-        button {
-            margin-top: 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 16px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
+    font-family: 'Poppins', sans-serif;
+    background-color: #f9fafb;
+}
+
+/* NAVBAR */
+.navbar {
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.navbar-brand {
+    font-weight: 600;
+    color: #111827 !important;
+}
+
+.nav-link {
+    font-weight: 500;
+    color: #4b5563 !important;
+    margin-left: 20px;
+    transition: 0.2s ease;
+}
+
+.nav-link:hover {
+    color: #4f46e5 !important;
+}
+
+/* ARTICLE */
+.article-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.article-card h1 {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #111827;
+}
+
+.article-meta {
+    color: #6b7280;
+    font-size: 14px;
+    margin-bottom: 28px;
+}
+
+.article-content {
+    font-size: 16px;
+    line-height: 1.9;
+    color: #374151;
+}
+
+/* COMMENTS */
+.comments-section {
+    margin-top: 60px;
+}
+
+.comments-section h4 {
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #111827;
+}
+
+.comment-card {
+    background: #f9fafb;
+    padding: 16px 18px;
+    border-radius: 12px;
+    margin-bottom: 14px;
+}
+
+.comment-card strong {
+    color: #4f46e5;
+    font-size: 14px;
+}
+
+/* COMMENT FORM */
+.comment-form {
+    margin-top: 40px;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+}
+
+.comment-form h5 {
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #111827;
+}
+
+.comment-form label {
+    font-weight: 500;
+    margin-top: 16px;
+    display: block;
+    font-size: 14px;
+    color: #374151;
+}
+
+.comment-form input,
+.comment-form textarea {
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    background: #f9fafb;
+}
+
+.comment-form textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* SIDEBAR */
+.search-box {
+    background: #ffffff;
+    padding: 24px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+}
+
+/* BUTTON */
+.btn-primary {
+    background: #4f46e5;
+    border: none;
+    border-radius: 999px;
+    padding: 10px;
+    font-weight: 500;
+}
+
+.btn-primary:hover {
+    background: #4338ca;
+}
+
+/* FOOTER */
+.footer {
+    margin-top: 70px;
+    padding: 24px 0;
+    text-align: center;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.footer a {
+    color: #4f46e5;
+    text-decoration: none;
+    font-weight: 500;
+}
+
     </style>
 </head>
 <body>
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg">
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
-        <a class="navbar-brand" href="#">ExcelR Blog App</a>
-        <div class="navbar-nav">
+        <a class="navbar-brand" href="#">ExcelR Blog</a>
+        <div class="navbar-nav ml-auto">
             <a class="nav-link" th:href="@{/dashboard}">Home</a>
             <a class="nav-link" th:href="@{/register}">Register</a>
             <a class="nav-link" th:href="@{/login}">Login</a>
@@ -87,64 +175,91 @@
     </div>
 </nav>
 
-<!-- Main Content -->
-<div class="container mt-4">
+<!-- CONTENT -->
+<div class="container mt-5">
     <div class="row">
-        <!-- Left: Post + Comments -->
-        <div class="col-md-9">
-            <h1 th:text="${post.title}">Post Title</h1>
-            <div th:utext="${post.content}"></div>
 
-            <hr>
-            <h3>Comments</h3>
-            <div th:each="comment : ${comments}" class="comment">
-                <strong th:text="${comment.name}">User</strong> says:
-                <p th:text="${comment.content}">Comment Content</p>
-            </div>
+        <!-- ARTICLE -->
+        <div class="col-md-8">
+            <div class="article-card">
+                <h1 th:text="${post.title}">Post Title</h1>
 
-            <!-- Add Comment Form -->
-            <div th:if="${user != null and user.id != post.user.id}">
-                <h4>Add a Comment</h4>
-                <form th:action="@{/comment/{postId}(postId=${post.id})}" th:object="${commentObj}" method="post">
-                    <label>Name:</label>
-                    <input type="text" th:field="*{name}" required />
+                <div class="article-meta">
+                    Published on
+                    <span th:text="${#temporals.format(post.createdOn, 'dd MMM yyyy')}">
+                        Date
+                    </span>
+                </div>
 
-                    <label>Email:</label>
-                    <input type="email" th:field="*{email}" required />
+                <div class="article-content" th:utext="${post.content}">
+                </div>
 
-                    <label>Comment:</label>
-                    <textarea th:field="*{content}" required></textarea>
+                <!-- COMMENTS -->
+                <div class="comments-section">
+                    <h4>Comments</h4>
 
-                    <button type="submit">Submit</button>
-                </form>
-            </div>
+                    <div th:each="comment : ${comments}" class="comment-card">
+                        <strong th:text="${comment.name}">User</strong>
+                        <p class="mb-1" th:text="${comment.content}">Comment</p>
+                    </div>
+                </div>
 
-            <!-- Author can't comment -->
-            <div th:if="${user != null and user.id == post.user.id}">
-                <p>You cannot comment on your own post.</p>
+                <!-- ADD COMMENT -->
+                <div th:if="${user != null and user.id != post.user.id}">
+                    <div class="comment-form">
+                        <h5>Add a comment</h5>
+                        <form th:action="@{/comment/{postId}(postId=${post.id})}"
+                              th:object="${commentObj}" method="post">
+
+                            <label>Name</label>
+                            <input type="text" th:field="*{name}" class="form-control" required>
+
+                            <label>Email</label>
+                            <input type="email" th:field="*{email}" class="form-control" required>
+
+                            <label>Comment</label>
+                            <textarea th:field="*{content}" class="form-control" required></textarea>
+
+                            <button type="submit" class="btn btn-primary mt-3">
+                                Submit Comment
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- AUTHOR MESSAGE -->
+                <div th:if="${user != null and user.id == post.user.id}" class="mt-4">
+                    <p class="text-muted">
+                        You cannot comment on your own post.
+                    </p>
+                </div>
             </div>
         </div>
 
-        <!-- Right: Search Box -->
-        <div class="col-md-3">
+        <!-- SIDEBAR -->
+        <div class="col-md-4">
             <div class="search-box">
-                <h5>Blog Search</h5>
+                <h5>Search Blogs</h5>
                 <form th:action="@{/search}" method="get">
-                    <input type="text" name="query" class="form-control mb-2" placeholder="Search blogs..." th:value="${query}">
-                    <button type="submit" class="btn btn-primary btn-block">Search</button>
+                    <input type="text"
+                           name="query"
+                           class="form-control mb-3"
+                           placeholder="Search blogs..."
+                           th:value="${query}">
+                    <button type="submit" class="btn btn-primary btn-block">
+                        Search
+                    </button>
                 </form>
             </div>
         </div>
+
     </div>
 </div>
 
-<!-- Footer -->
+<!-- FOOTER -->
 <div class="footer">
-    <div class="container">
-        Copyright © 2023 <a href="#">ExcelR</a>. All rights reserved.
-    </div>
+    © 2023 <a href="#">ExcelR</a>. All rights reserved.
 </div>
 
 </body>
 </html>
-

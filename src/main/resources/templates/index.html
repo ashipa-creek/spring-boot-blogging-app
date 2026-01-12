@@ -3,87 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <title>ExcelR Blog App</title>
+
+    <!-- Bootstrap -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
     <style>
         body {
-            background-color: #f8f9fa;
-        }
-        .navbar {
-            background-color: #111;
-        }
-        .navbar a, .navbar-brand {
-            color: white !important;
-        }
-        .card {
-            margin-bottom: 20px;
-        }
-        .search-box {
-            background-color: white;
-            padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 0 3px rgba(0,0,0,0.1);
-        }
-        .footer {
-            background-color: #111;
-            color: white;
-            padding: 15px 0;
-            text-align: center;
-            margin-top: 30px;
-        }
-        .footer a {
-            color: #00f;
-        }
+    font-family: 'Poppins', sans-serif;
+    background-color: #f9fafb;
+}
+
+/* NAVBAR */
+.navbar {
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.navbar-brand {
+    font-weight: 600;
+    font-size: 18px;
+    color: #111827 !important;
+}
+
+.nav-link {
+    font-weight: 500;
+    color: #4b5563 !important;
+    margin-left: 20px;
+    transition: 0.2s ease;
+}
+
+.nav-link:hover {
+    color: #4f46e5 !important;
+}
+
+/* BLOG CARD */
+.blog-card {
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+    padding: 24px;
+    margin-bottom: 28px;
+    transition: 0.25s ease;
+}
+
+.blog-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+}
+
+.blog-card h5 a {
+    color: #111827;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.blog-card h5 a:hover {
+    color: #4f46e5;
+}
+
+.blog-card p {
+    color: #374151;
+    margin-top: 12px;
+    line-height: 1.7;
+    font-size: 14px;
+}
+
+/* SEARCH BOX */
+.search-box {
+    background: #ffffff;
+    padding: 24px;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+}
+
+.search-box h5 {
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: #111827;
+}
+
+/* Bootstrap button override */
+.btn-primary {
+    background: #4f46e5;
+    border: none;
+    border-radius: 999px;
+    padding: 10px;
+    font-weight: 500;
+}
+
+.btn-primary:hover {
+    background: #4338ca;
+}
+
+/* FOOTER */
+.footer {
+    margin-top: 70px;
+    padding: 24px 0;
+    text-align: center;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.footer a {
+    color: #4f46e5;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
     </style>
 </head>
 <body>
-<div class="container">
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #111;">
-        <a class="navbar-brand" href="#">ExcelR Blog App</a>
-        <div class="navbar-nav">
-            <a class="nav-link ml-3" th:href="@{/dashboard}">Home</a>
-            <a class="nav-link ml-3" th:href="@{/register}">Register</a>
-            <a class="nav-link ml-3" th:href="@{/login}">Login</a>
-        </div>
-    </nav>
-</div>
 
-<div class="container mt-4">
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">ExcelR Blog</a>
+        <div class="navbar-nav ml-auto">
+            <a class="nav-link" th:href="@{/dashboard}">Home</a>
+            <a class="nav-link" th:href="@{/register}">Register</a>
+            <a class="nav-link" th:href="@{/login}">Login</a>
+        </div>
+    </div>
+</nav>
+
+<!-- CONTENT -->
+<div class="container mt-5">
     <div class="row">
-        <!-- Blog Posts List -->
-        <div class="col-md-9">
+
+        <!-- POSTS -->
+        <div class="col-md-8">
             <div th:each="post : ${posts}">
-                <div class="card">
-                    <div class="card-body">
-                        <h5>
-                            <a th:href="@{'/view/' + ${post.id}}" class="text-primary" th:text="${post.title}">Post Title</a>
-                        </h5>
-                        <small class="text-muted" th:text="${#temporals.format(post.createdOn, 'dd MMM yyyy')}">Date</small>
-                        <p>
-                            <span th:utext="${#strings.abbreviate(post.content, 100)}">Post content...</span>
-                            <a th:href="@{'/view/' + ${post.id}}">Read more</a>
-                        </p>
-                    </div>
+                <div class="blog-card">
+                    <h5>
+                        <a th:href="@{'/view/' + ${post.id}}"
+                           th:text="${post.title}">
+                            Post Title
+                        </a>
+                    </h5>
+
+                    <small class="text-muted"
+                           th:text="${#temporals.format(post.createdOn, 'dd MMM yyyy')}">
+                        Date
+                    </small>
+
+                    <p>
+                        <span th:utext="${#strings.abbreviate(post.content, 120)}">
+                            Post content...
+                        </span>
+                        <a th:href="@{'/view/' + ${post.id}}">Read more</a>
+                    </p>
                 </div>
             </div>
         </div>
 
-        <!-- Search Form -->
-        <div class="col-md-3">
+        <!-- SIDEBAR -->
+        <div class="col-md-4">
             <div class="search-box">
-                <h5>Blog Search</h5>
+                <h5>Search Blogs</h5>
                 <form th:action="@{/search}" method="get">
-                    <input type="text" name="query" class="form-control mb-2" placeholder="Search blogs..." th:value="${query}">
-                    <button type="submit" class="btn btn-primary btn-block">Search</button>
+                    <input type="text"
+                           name="query"
+                           class="form-control mb-3"
+                           placeholder="Search blogs..."
+                           th:value="${query}">
+                    <button type="submit" class="btn btn-primary btn-block">
+                        Search
+                    </button>
                 </form>
             </div>
         </div>
+
     </div>
 </div>
 
-<div class="container">
-    <div class="footer">
-        Copyright © 2023 <a href="#">ExcelR</a>. All rights reserved.
-    </div>
+<!-- FOOTER -->
+<div class="footer">
+    © 2023 <a href="#">ExcelR</a>. All rights reserved.
 </div>
 
 </body>
